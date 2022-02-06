@@ -14,7 +14,7 @@ export default function Navbar() {
         />
       </div>
       <button type="button" className={styles["cart-btn"]}>
-        <AiOutlineShoppingCart size="1.75em" />
+        <AiOutlineShoppingCart size="1.5em" />
       </button>
     </nav>
   );
