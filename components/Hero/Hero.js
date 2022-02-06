@@ -4,7 +4,7 @@ export default function Hero() {
   return (
     <section className={styles.container}>
       <div className={styles.intro}>
-        <h1 className="text-6xl tracking-tight font-black uppercase text-center mb-10 text-white">
+        <h1 className="text-6xl tracking-tight font-black uppercase text-center mb-10 text-white space-y-2">
           <span className="block xl:inline">Do More</span>
           <div className="flex justify-center">
             <span className={`${styles.dot} text-red-600 xl:inline`}>•</span>
