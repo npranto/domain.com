@@ -1,6 +1,31 @@
+import { useState } from "react";
+import { useRouter } from "next/router";
 import styles from "./Hero.module.css";
 
 export default function Hero() {
+  const router = useRouter();
+  const [searchInput, setSearchInput] = useState("");
+
+  const onChange = (e) => {
+    const { target: { value } = {} } = e || {};
+    setSearchInput(value.toLowerCase());
+    /* 
+      TODO: add a domain validator based on follow rule set:
+        - domain name should be a-z or A-Z or 0-9 and hyphen (-).
+        - domain name should be between 1 and 63 characters long.
+        - domain name should not start or end with a hyphen(-) (e.g. -geeksforgeeks.org or geeksforgeeks.org-).
+        - last TLD (Top level domain) must be at least two characters and a maximum of 6 characters.
+        - domain name can be a subdomain (e.g. contribute.geeksforgeeks.org)
+      TODO: add a debounce to domain validator, so the validation only
+      occurs once every second at max
+    */
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    router.push(`/registration?${searchInput}`);
+  };
+
   return (
     <section className={styles.container}>
       <div className={styles.intro}>
@@ -22,26 +47,35 @@ export default function Hero() {
           </div>
         </h1>
 
-        <form className={`flex flex-col sm:flex-row max-w-screen-sm m-auto`}>
+        <form
+          className={`flex flex-col sm:flex-row max-w-screen-sm m-auto`}
+          onSubmit={onSubmit}
+        >
           <div className="search-field flex-grow sm:mr-2">
             <label>
               <input
                 type="text"
                 className="p-3 text-xl font-light rounded-md bg-white border w-full mb-3"
                 name="search"
-                placeholder="Find your domain name"
+                value={searchInput}
+                onChange={onChange}
+                maxLength={63}
+                placeholder="Find your domain name, i.e., james.com"
               />
             </label>
           </div>
           <button
             type="submit"
-            className="flex text-sm justify-center align-center p-4 uppercase bg-red-500 text-white text-center rounded-md mb-3"
+            disabled={searchInput.length === 0}
+            className={`flex flex-shrink-0 text-sm justify-center align-center p-4 uppercase bg-red-500 text-white text-center rounded-md mb-3 ${
+              searchInput.length === 0 ? "opacity-80 cursor-not-allowed" : ""
+            }`}
           >
             Search
           </button>
         </form>
 
-        <p className="tld-price-info space-x-2 text-center text-sm sm:text-lg text-white">
+        <p className="tld-price-info space-x-3 text-center text-sm sm:text-lg text-white">
           <span>
             <span className="font-bold">.COM</span> only $9.99
           </span>

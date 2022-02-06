@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Footer from "../components/Footer/Footer";
 import Hero from "../components/Hero/Hero";
 import Navbar from "../components/Navbar/Navbar";
 import styles from "../styles/Home.module.css";
@@ -44,7 +45,7 @@ export default function Home() {
         <Hero />
       </main>
 
-      <footer className={styles.footer}>Footer</footer>
+      <Footer />
     </div>
   );
 }
