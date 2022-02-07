@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "./Navbar.module.css";
+import styles from "./Nav.module.css";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 
 export default function Navbar({ cart = [] }) {

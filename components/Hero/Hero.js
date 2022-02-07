@@ -23,7 +23,10 @@ export default function Hero() {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    router.push(`/registration?${searchInput}`);
+    const formattedDomain = searchInput.includes(".")
+      ? searchInput
+      : `${searchInput}.com`;
+    router.push(`/registration?domain=${formattedDomain}`);
   };
 
   return (
@@ -48,7 +51,7 @@ export default function Hero() {
         </h1>
 
         <form
-          className={`flex flex-col sm:flex-row max-w-screen-sm m-auto`}
+          className={`flex flex-col sm:flex-row md:max-w-screen-sm m-auto`}
           onSubmit={onSubmit}
         >
           <div className="search-field flex-grow sm:mr-2">
@@ -60,15 +63,17 @@ export default function Hero() {
                 value={searchInput}
                 onChange={onChange}
                 maxLength={63}
-                placeholder="Find your domain name, i.e., james.com"
+                placeholder="james.com"
               />
             </label>
           </div>
           <button
             type="submit"
             disabled={searchInput.length === 0}
-            className={`flex flex-shrink-0 text-sm justify-center align-center p-4 uppercase bg-red-500 text-white text-center rounded-md mb-3 ${
-              searchInput.length === 0 ? "opacity-80 cursor-not-allowed" : ""
+            className={`flex text-sm justify-center items-center px-10 py-4 uppercase bg-red-500 text-white text-center rounded-md mb-3 transition-colors ${
+              searchInput.length === 0
+                ? "opacity-90 cursor-not-allowed"
+                : "hover:bg-red-600"
             }`}
           >
             Search

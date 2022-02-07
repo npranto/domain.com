@@ -1,10 +1,23 @@
+import { useEffect, useState } from "react";
 import Head from "next/head";
+import CookieNotice from "../components/CookieNotice/CookieNotice";
 import Footer from "../components/Footer/Footer";
 import Hero from "../components/Hero/Hero";
-import Navbar from "../components/Navbar/Navbar";
+import Nav from "../components/Nav/Nav";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
+  const [showCookieNotice, setShowCookieNotice] = useState(() =>
+    typeof window !== "undefined"
+      ? sessionStorage.getItem("cookie-notice-seen") === null
+      : false
+  );
+
+  const onHideCookieNotice = () => {
+    setShowCookieNotice(false);
+    sessionStorage.setItem("cookie-notice-seen", true);
+  };
+
   return (
     <div className={styles.container}>
       <Head>
@@ -40,10 +53,13 @@ export default function Home() {
         <meta name="theme-color" content="#ffffff"></meta>
       </Head>
 
+      <Nav />
+
       <main className={styles.main}>
-        <Navbar />
         <Hero />
       </main>
+
+      {showCookieNotice ? <CookieNotice onClose={onHideCookieNotice} /> : null}
 
       <Footer />
     </div>
