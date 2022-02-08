@@ -4,7 +4,7 @@ import useSearchInput from '../../hooks/useSearchInput';
 
 export default function Hero() {
 	const router = useRouter();
-	const { searchInput, onChange } = useSearchInput('');
+	const { searchInput, onSearchInputChange } = useSearchInput('');
 
 	const onSubmit = (e) => {
 		e.preventDefault();
@@ -47,7 +47,7 @@ export default function Hero() {
 								name="search"
 								id="search-input"
 								value={searchInput}
-								onChange={onChange}
+								onChange={onSearchInputChange}
 								maxLength={63}
 								placeholder="james.com"
 							/>

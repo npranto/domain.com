@@ -2,10 +2,10 @@ import { useState } from 'react';
 
 export default function useSearchInput(initialInput = '') {
 	const [searchInput, setSearchInput] = useState(initialInput);
-	const onChange = (e) => {
+	const onSearchInputChange = (e) => {
 		const { target: { value } = {} } = e || {};
 		setSearchInput(value.toLowerCase());
-		/* 
+		/*
       TODO: add a domain validator based on follow rule set:
         - domain name should be a-z or A-Z or 0-9 and hyphen (-).
         - domain name should be between 1 and 63 characters long.
@@ -19,6 +19,7 @@ export default function useSearchInput(initialInput = '') {
 
 	return {
 		searchInput,
-		onChange,
+		onSearchInputChange,
+		setSearchInput,
 	};
 }
