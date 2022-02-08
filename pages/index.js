@@ -1,21 +1,21 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import CookieNotice from "../components/CookieNotice/CookieNotice";
 import Footer from "../components/Footer/Footer";
 import Hero from "../components/Hero/Hero";
 import Nav from "../components/Nav/Nav";
 import styles from "../styles/Home.module.css";
+import hasWindow from "../utils/hasWindow";
 
 export default function Home() {
-  const [showCookieNotice, setShowCookieNotice] = useState(() =>
-    typeof window !== "undefined"
-      ? sessionStorage.getItem("cookie-notice-seen") === null
-      : false
+  const [showCookieNotice, setShowCookieNotice] = useState(
+    () =>
+      hasWindow() && sessionStorage.getItem("cookie-notice-accepted") === null
   );
 
   const onHideCookieNotice = () => {
+    sessionStorage.setItem("cookie-notice-accepted", true);
     setShowCookieNotice(false);
-    sessionStorage.setItem("cookie-notice-seen", true);
   };
 
   return (
