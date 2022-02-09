@@ -1,21 +1,25 @@
 import { useEffect, useState } from 'react';
 
 export default function PrivacyProtectionCheckbox({
-	onRemovePrivacyProtection = () => {},
-	onAddPrivacyProtection = () => {},
-	privacy = {},
+	term = 12,
+	onRemovePrivacyProtection,
+	onAddPrivacyProtection,
+	privacy,
 }) {
 	const [isPrivacyIncluded, setIsPrivacyIncluded] = useState(true);
 
 	useEffect(() => {
 		if (isPrivacyIncluded) {
 			console.log('privacy is enabled, calling onAddPrivacyProtection()');
-			onAddPrivacyProtection();
+			onAddPrivacyProtection(privacy);
 		} else {
 			console.log('privacy is disabled, calling onRemovePrivacyProtection()');
-			onRemovePrivacyProtection();
+			onRemovePrivacyProtection(privacy);
 		}
 	}, [isPrivacyIncluded]);
+
+	const privacyTerm = (privacy.terms || []).find((t) => t.term === term);
+	const privacyPrice = privacyTerm?.basePrice;
 
 	return (
 		<div className="privacy-protection-checkbox flex items-start px-2 md:px-0 my-2">
@@ -35,7 +39,7 @@ export default function PrivacyProtectionCheckbox({
 					className="font-medium text-gray-700"
 				>
 					<span className="font-semibold">Add Domain Privacy + Protection</span>{' '}
-					to each domain for $8.99 per year.{' '}
+					to each domain for ${privacyPrice} per year.{' '}
 					<a href="#/" className="font-semibold text-blue-500">
 						What&apos;s this?
 					</a>

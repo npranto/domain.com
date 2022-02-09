@@ -14,11 +14,11 @@ export default function SearchedDomainStatus({
 		(item) => item?.domainInfo?.domain === searchedDomain?.domainInfo?.domain
 	);
 
-	useEffect(() => {
-		if (isDomainAvailable) {
-			addDomainToCart(searchedDomain);
-		}
-	}, []);
+	// useEffect(() => {
+	// 	if (isDomainAvailable) {
+	// 		addDomainToCart(searchedDomain);
+	// 	}
+	// }, []);
 
 	return (
 		<section className="searched-domain-status flex flex-col shadow-md  rounded-md my-4">
@@ -47,7 +47,7 @@ export default function SearchedDomainStatus({
 							<button
 								type="button"
 								className="flex space-x-2 items-center px-4 py-2"
-								onClick={removeDomainFromCart}
+								onClick={() => removeDomainFromCart(searchedDomain)}
 							>
 								<span className="text-lg font-medium text-green-600">
 									Added To Cart
@@ -60,7 +60,7 @@ export default function SearchedDomainStatus({
 							<button
 								type="button"
 								className="flex items-center bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md transition-colors"
-								onClick={addDomainToCart}
+								onClick={() => addDomainToCart(searchedDomain)}
 							>
 								<span className="text-lg font-medium text-white">
 									Add To Cart

@@ -20,16 +20,18 @@ export default function DomainSuggestion({
 
 	return (
 		<li className="flex justify-between items-center space-x-4 py-4">
-			<h3 className="text-lg md:text-xl font-normal flex-grow">{domainName}</h3>
+			<h3 className="text-xs sm:text-sm md:text-xl font-normal flex-grow">
+				{domainName}
+			</h3>
 			<p className="font-semibold flex-shrink-0">${domainPrice}</p>
 			{isDomainInCart ? (
 				<button
 					type="button"
-					className="flex space-x-2 items-center"
+					className="flex space-x-2 items-center flex-shrink-0"
 					onClick={() => removeDomainFromCart(domain)}
 				>
 					<span className="text-sm font-medium text-green-600">
-						Added To Cart
+						Added <span className="hidden sm:inline">To Cart</span>
 					</span>
 					<span>
 						<FaRegTimesCircle />
@@ -38,10 +40,12 @@ export default function DomainSuggestion({
 			) : (
 				<button
 					type="button"
-					className="flex items-center bg-green-600 hover:bg-green-700 transition-colors px-4 py-2 rounded-md"
+					className="flex items-center bg-green-600 hover:bg-green-700 transition-colors px-4 py-2 rounded-md flex-shrink-0"
 					onClick={() => addDomainToCart(domain)}
 				>
-					<span className="text-sm font-medium text-white">Add To Cart</span>
+					<span className="text-sm font-medium text-white">
+						Add <span className="hidden sm:inline"> To Cart</span>
+					</span>
 				</button>
 			)}
 		</li>

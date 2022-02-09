@@ -12,7 +12,7 @@ import styles from './Footer.module.css';
 export default function Footer() {
 	return (
 		<footer
-			className={`${styles.container} bg-gray-800 px-4 py-6 text-zinc-400 flex flex-col items-center md:flex-row space-y-3 md:space-y-0`}
+			className={`${styles.container} bg-gray-800 px-4 py-6 text-zinc-400 flex flex-col items-center md:flex-row space-y-3 md:space-y-0 pb-24`}
 		>
 			<ul
 				className={`${styles.socials} md:order-2 flex space-x-3 flex-shrink basis-0`}

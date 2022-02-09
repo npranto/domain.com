@@ -1,16 +1,23 @@
 import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Loading from './Loading';
 import DomainSuggestions from './DomainSuggestions';
 import DomainSearchBar from './DomainSearchBar';
 import SearchedDomainStatus from './SearchedDomainStatus';
 import PrivacyProtectionCheckbox from './PrivacyProtectionCheckbox';
 import extractDomain from '../../utils/extractDomain';
-import { DEFAULT_TLD } from '../../constants/constants';
+import {
+	DEFAULT_PRIVACY_PRODUCT,
+	DEFAULT_DOMAIN_TLD,
+} from '../../constants/constants';
 import fetchDomain from '../../utils/fetchDomain';
 import ErrorAlert from '../ErrorAlert';
 import validateDomain from '../../utils/validateDomain';
 import StartDomainSearch from './StartDomainSearch';
+import fetchProduct from '../../utils/fetchProduct';
+import { CartContext } from '../../context/CartContext';
+import SliderCart from '../Cart/SliderCart';
+import StickyCart from '../Cart/StickyCart';
 
 const IDLE = 'IDLE';
 const SEARCH_PENDING = 'SEARCH_PENDING';
@@ -21,13 +28,33 @@ export default function DomainSearch() {
 	// eslint-disable-next-line no-unused-vars
 	const [status, setStatus] = useState(IDLE);
 	const [fetchedDomains, setFetchedDomains] = useState([]);
+	const [fetchedPrivacy, setFetchedPrivacy] = useState(null);
 	const [error, setError] = useState(null);
 	const [searchedDomainName, setSearchedDomainName] = useState('');
+	const [showCart, setShowCart] = useState(false);
+
+	const { cart, addItemToCart, removeItemFromCart } = useContext(CartContext);
+
+	useEffect(() => {
+		const TYPE = '2092';
+		const LEVEL = 'dir_base01_';
+
+		fetchProduct({ type: TYPE, level: LEVEL })
+			.then((product) => {
+				if (product?.type === TYPE && product?.level === LEVEL) {
+					setFetchedPrivacy(product);
+				} else {
+					setFetchedPrivacy(DEFAULT_PRIVACY_PRODUCT);
+				}
+			})
+			.catch(() => setFetchedPrivacy(DEFAULT_PRIVACY_PRODUCT));
+	}, []);
 
 	useEffect(() => {
 		setError(null);
 		const queryDomain = router?.query?.domain || '';
-		const { sld = '', tld = DEFAULT_TLD } = extractDomain(queryDomain);
+		if (!queryDomain || !queryDomain.length) return;
+		const { sld = '', tld = DEFAULT_DOMAIN_TLD } = extractDomain(queryDomain);
 		const { isValid, error: message } = validateDomain(sld, tld);
 		const formattedDomain = `${sld}.${tld}`;
 		setSearchedDomainName(formattedDomain);
@@ -46,7 +73,8 @@ export default function DomainSearch() {
 
 	const onSearchDomain = (domainName) => {
 		setError(null);
-		const { sld = '', tld = DEFAULT_TLD } = extractDomain(domainName);
+		if (!domainName || !domainName.length) return;
+		const { sld = '', tld = DEFAULT_DOMAIN_TLD } = extractDomain(domainName);
 		const { isValid, error: message } = validateDomain(sld, tld);
 		if (!isValid) {
 			setError(message);
@@ -65,14 +93,25 @@ export default function DomainSearch() {
 
 	const addDomainToCart = (domain) => {
 		console.log('add domain to cart', domain);
+		addItemToCart(domain);
 	};
 
 	const removeDomainFromCart = (domain) => {
 		console.log('remove domain from cart', domain);
+		removeItemFromCart(domain);
 	};
 
-	const removePrivacyFromCart = () => {
+	const removePrivacyFromCart = (p) => {
 		console.log('remove all privacy from cart');
+		removeItemFromCart(p);
+	};
+
+	const onShowCart = () => {
+		setShowCart(true);
+	};
+
+	const onHideCart = () => {
+		setShowCart(false);
 	};
 
 	const getSearchedDomain = () => {
@@ -120,6 +159,7 @@ export default function DomainSearch() {
 				{status === SEARCH_COMPLETE ? (
 					<>
 						<SearchedDomainStatus
+							cart={cart}
 							searchedDomain={searchedDomain}
 							addDomainToCart={addDomainToCart}
 							removeDomainFromCart={removeDomainFromCart}
@@ -127,13 +167,27 @@ export default function DomainSearch() {
 						<PrivacyProtectionCheckbox
 							onRemovePrivacyProtection={removePrivacyFromCart}
 							onAddPrivacyProtection={() => {}}
-							privacy={{}}
+							privacy={fetchedPrivacy}
 						/>
 						<DomainSuggestions
+							cart={cart}
 							suggestionDomains={suggestionDomains}
 							addDomainToCart={addDomainToCart}
 							removeDomainFromCart={removeDomainFromCart}
 						/>
+
+						{cart.length > 0 ? (
+							<StickyCart onShowCart={onShowCart} cart={cart} />
+						) : null}
+						{showCart ? (
+							<SliderCart
+								onHideCart={onHideCart}
+								cart={cart}
+								removeItemFromCart={removeItemFromCart}
+							/>
+						) : null}
+
+						<pre>{JSON.stringify({ cart }, null, 2)}</pre>
 					</>
 				) : null}
 			</article>

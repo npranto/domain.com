@@ -1,6 +1,7 @@
 import DomainSuggestion from './DomainSuggestion';
 
 export default function DomainSuggestions({
+	cart,
 	suggestionDomains = [],
 	addDomainToCart,
 	removeDomainFromCart,
@@ -16,6 +17,7 @@ export default function DomainSuggestions({
 			<ul className="grid grid-cols-1 divide-y py-2 px-2 md:px-8 bg-white">
 				{suggestionDomains.map((domain) => (
 					<DomainSuggestion
+						cart={cart}
 						key={JSON.stringify(domain)}
 						domain={domain}
 						addDomainToCart={addDomainToCart}
