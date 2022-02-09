@@ -9,5 +9,5 @@ export default function extractDomain(dn = '') {
 		.split('.')
 		.slice(0, 2);
 
-	return { sld: sld || '', tld: tld || '' };
+	return { sld, tld };
 }

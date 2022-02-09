@@ -1,10 +1,16 @@
+import { useRouter } from 'next/router';
 import { BsSearch } from 'react-icons/bs';
+import { useEffect } from 'react/cjs/react.development';
+import useSearchInput from '../../hooks/useSearchInput';
 
-export default function DomainSearchBar({
-	searchInput,
-	onSearchInputChange,
-	onSearchDomain,
-}) {
+export default function DomainSearchBar({ onSearchDomain }) {
+	const router = useRouter();
+
+	const { searchInput, onSearchInputChange, setSearchInput } =
+		useSearchInput('');
+
+	useEffect(() => setSearchInput(router.query.domain), [router.query.domain]);
+
 	const onSubmit = (e) => {
 		e.preventDefault();
 		onSearchDomain(searchInput);

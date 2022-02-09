@@ -10,7 +10,7 @@ export default function SearchedDomainStatus({
 }) {
 	const domainName = searchedDomain.domainInfo.domain;
 	const isDomainAvailable = searchedDomain.domainInfo.availability;
-	const isSearchedDomainInCart = true;
+	const isSearchedDomainInCart = false;
 
 	useEffect(() => {
 		if (isDomainAvailable) {
@@ -38,49 +38,59 @@ export default function SearchedDomainStatus({
 						{domainName}
 					</h3>
 				</div>
-				<div className="domain-cta flex justify-center flex-shrink-0">
-					{isSearchedDomainInCart ? (
-						<button
-							type="button"
-							className="flex space-x-2 items-center px-4 py-2"
-							onClick={removeDomainFromCart}
-						>
-							<span className="text-lg font-medium text-green-600">
-								Added To Cart
-							</span>
-							<span>
-								<FaRegTimesCircle />
-							</span>
-						</button>
-					) : (
-						<button
-							type="button"
-							className="flex items-center bg-green-600 px-4 py-2 rounded-md"
-							onClick={addDomainToCart}
-						>
-							<span className="text-lg font-medium text-white">
-								Add To Cart
-							</span>
-						</button>
-					)}
-				</div>
+
+				{isDomainAvailable ? (
+					<div className="domain-cta flex justify-center flex-shrink-0">
+						{isSearchedDomainInCart ? (
+							<button
+								type="button"
+								className="flex space-x-2 items-center px-4 py-2"
+								onClick={removeDomainFromCart}
+							>
+								<span className="text-lg font-medium text-green-600">
+									Added To Cart
+								</span>
+								<span>
+									<FaRegTimesCircle />
+								</span>
+							</button>
+						) : (
+							<button
+								type="button"
+								className="flex items-center bg-green-600 px-4 py-2 rounded-md"
+								onClick={addDomainToCart}
+							>
+								<span className="text-lg font-medium text-white">
+									Add To Cart
+								</span>
+							</button>
+						)}
+					</div>
+				) : null}
 			</div>
 
 			<div className="domain-status-suggestion py-2 px-2 md:px-8 bg-gray-100">
-				<p className="text-xs">
-					But wait! Check out this collection of{' '}
-					<a href="#domain-suggestions" className="font-semibold text-blue-500">
-						related domains
-					</a>{' '}
-					you may like, or refine your search and try again.
-				</p>
-				{/* <p className="text-xs">
-					Make sure to register{' '}
-					<a href="#domain-suggestions" className="font-bold text-blue-500">
-						alternative TLDs
-					</a>{' '}
-					to protect your brand. Check out the list below, picked just for you.
-				</p> */}
+				{isDomainAvailable ? (
+					<p className="text-xs">
+						Make sure to register{' '}
+						<a href="#domain-suggestions" className="font-bold text-blue-500">
+							alternative TLDs
+						</a>{' '}
+						to protect your brand. Check out the list below, picked just for
+						you.
+					</p>
+				) : (
+					<p className="text-xs">
+						But wait! Check out this collection of{' '}
+						<a
+							href="#domain-suggestions"
+							className="font-semibold text-blue-500"
+						>
+							related domains
+						</a>{' '}
+						you may like, or refine your search and try again.
+					</p>
+				)}
 			</div>
 		</section>
 	);

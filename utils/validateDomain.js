@@ -1,6 +1,6 @@
-import { VALID_TLDS } from '../constants/constants';
+import { DEFAULT_TLD, VALID_TLDS } from '../constants/constants';
 
-export default function validateDomain(sld = '', tld = '') {
+export default function validateDomain(sld = '', tld = DEFAULT_TLD) {
 	if (!sld || !sld.length) {
 		return {
 			isValid: false,

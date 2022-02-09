@@ -1,16 +1,12 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { BsFillCheckCircleFill } from 'react-icons/bs';
-import useSearchInput from '../../hooks/useSearchInput';
 import Loading from './Loading';
-import AddPrivacyProtection from './PrivacyProtectionCheckbox';
-import DomainSuggestion from './DomainSuggestion';
 import DomainSuggestions from './DomainSuggestions';
-import DomainSearchBar from './DomanSearchbar';
+import DomainSearchBar from './DomainSearchBar';
 import SearchedDomainStatus from './SearchedDomainStatus';
 import PrivacyProtectionCheckbox from './PrivacyProtectionCheckbox';
 import extractDomain from '../../utils/extractDomain';
-import { DEFAULT_DOMAIN_TLD } from '../../constants/constants';
+import { DEFAULT_TLD } from '../../constants/constants';
 import fetchDomain from '../../utils/fetchDomain';
 import ErrorAlert from '../ErrorAlert';
 import validateDomain from '../../utils/validateDomain';
@@ -27,18 +23,14 @@ export default function DomainSearch() {
 	const [fetchedDomains, setFetchedDomains] = useState([]);
 	const [error, setError] = useState(null);
 	const [searchedDomainName, setSearchedDomainName] = useState('');
-	// TODO: on page transition, the search bar shows the domain name from url query param, but on page refresh, the searchInput resets, leavings the search bar empty; come back to this bug later on
-	const { searchInput, onSearchInputChange, setSearchInput } = useSearchInput(
-		router?.query?.domain || ''
-	);
 
 	useEffect(() => {
 		setError(null);
 		const queryDomain = router?.query?.domain || '';
-		const { sld = '', tld = '' } = extractDomain(queryDomain);
+		const { sld = '', tld = DEFAULT_TLD } = extractDomain(queryDomain);
 		const { isValid, error: message } = validateDomain(sld, tld);
-		const formattedDomain = `${sld}.${tld || DEFAULT_DOMAIN_TLD}`;
-		setSearchInput(formattedDomain);
+		const formattedDomain = `${sld}.${tld}`;
+		// setSearchInput(formattedDomain);
 		setSearchedDomainName(formattedDomain);
 		if (!isValid) {
 			setError(message);
@@ -46,32 +38,28 @@ export default function DomainSearch() {
 			setStatus(SEARCH_PENDING);
 			setTimeout(() => {
 				fetchDomain(formattedDomain)
-					.then((domains) => {
-						setFetchedDomains(domains);
-						setStatus(SEARCH_COMPLETE);
-					})
-					.catch((e) => setError(e.message));
+					.then((domains) => setFetchedDomains(domains))
+					.catch((e) => setError(e.message))
+					.finally(() => setStatus(SEARCH_COMPLETE));
 			}, 500);
 		}
 	}, [router?.query?.domain]);
 
 	const onSearchDomain = (domainName) => {
 		setError(null);
-		const { sld = '', tld = '' } = extractDomain(domainName);
+		const { sld = '', tld = DEFAULT_TLD } = extractDomain(domainName);
 		const { isValid, error: message } = validateDomain(sld, tld);
-		const formattedDomain = `${sld}.${tld || DEFAULT_DOMAIN_TLD}`;
-		setSearchedDomainName(formattedDomain);
 		if (!isValid) {
 			setError(message);
 		} else {
+			const formattedDomain = `${sld}.${tld}`;
+			setSearchedDomainName(formattedDomain);
 			setStatus(SEARCH_PENDING);
 			setTimeout(() => {
 				fetchDomain(formattedDomain)
-					.then((domains) => {
-						setFetchedDomains(domains);
-						setStatus(SEARCH_COMPLETE);
-					})
-					.catch((e) => setError(e.message));
+					.then((domains) => setFetchedDomains(domains))
+					.catch((e) => setError(e.message))
+					.finally(() => setStatus(SEARCH_COMPLETE));
 			}, 500);
 		}
 	};
@@ -112,17 +100,13 @@ export default function DomainSearch() {
 	console.log({
 		query: router.query,
 		fetchedDomains,
-		searchedDomainName,
+		searchedDomain,
 		suggestionDomains,
 	});
 
 	return (
 		<>
-			<DomainSearchBar
-				searchInput={searchInput}
-				onSearchInputChange={onSearchInputChange}
-				onSearchDomain={onSearchDomain}
-			/>
+			<DomainSearchBar onSearchDomain={onSearchDomain} />
 
 			<article className="overflow auto flex flex-col flex-grow w-full max-w-screen-md mx-auto">
 				{error ? <ErrorAlert className="my-4" message={error} /> : null}

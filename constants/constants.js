@@ -1,4 +1,4 @@
-export const DEFAULT_DOMAIN_TLD = 'com';
+export const DEFAULT_TLD = 'com';
 export const VALID_TLDS = [
 	'com',
 	'net',
