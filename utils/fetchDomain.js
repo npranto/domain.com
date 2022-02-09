@@ -4,8 +4,8 @@ export default function fetchDomain(domainName) {
 	)
 		.then((res) => res.json())
 		.then((data) => {
-			const { results = [] } = data || {};
-			return results;
+			const { results = [], suggestions = [] } = data || {};
+			return [...results, ...suggestions];
 		})
 		.catch(() => {
 			throw new Error('Oops! Try again later!');

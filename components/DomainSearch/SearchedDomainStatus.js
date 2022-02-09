@@ -10,7 +10,9 @@ export default function SearchedDomainStatus({
 }) {
 	const domainName = searchedDomain.domainInfo.domain;
 	const isDomainAvailable = searchedDomain.domainInfo.availability;
-	const isSearchedDomainInCart = false;
+	const isSearchedDomainInCart = cart.some(
+		(item) => item?.domainInfo?.domain === searchedDomain?.domainInfo?.domain
+	);
 
 	useEffect(() => {
 		if (isDomainAvailable) {
@@ -57,7 +59,7 @@ export default function SearchedDomainStatus({
 						) : (
 							<button
 								type="button"
-								className="flex items-center bg-green-600 px-4 py-2 rounded-md"
+								className="flex items-center bg-green-600 hover:bg-green-700 px-4 py-2 rounded-md transition-colors"
 								onClick={addDomainToCart}
 							>
 								<span className="text-lg font-medium text-white">

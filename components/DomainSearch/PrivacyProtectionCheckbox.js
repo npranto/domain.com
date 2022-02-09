@@ -18,7 +18,7 @@ export default function PrivacyProtectionCheckbox({
 	}, [isPrivacyIncluded]);
 
 	return (
-		<div className="add-privacy-protection flex items-start my-4">
+		<div className="privacy-protection-checkbox flex items-start px-2 md:px-0 my-2">
 			<div className="flex items-center h-5">
 				<input
 					type="checkbox"

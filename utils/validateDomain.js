@@ -1,6 +1,6 @@
-import { DEFAULT_TLD, VALID_TLDS } from '../constants/constants';
+import { DEFAULT_DOMAIN_TLD, VALID_DOMAIN_TLDS } from '../constants/constants';
 
-export default function validateDomain(sld = '', tld = DEFAULT_TLD) {
+export default function validateDomain(sld = '', tld = DEFAULT_DOMAIN_TLD) {
 	if (!sld || !sld.length) {
 		return {
 			isValid: false,
@@ -15,10 +15,10 @@ export default function validateDomain(sld = '', tld = DEFAULT_TLD) {
 		};
 	}
 
-	if (!VALID_TLDS.includes(tld.toLowerCase())) {
+	if (!VALID_DOMAIN_TLDS.includes(tld.toLowerCase())) {
 		return {
 			isValid: false,
-			error: `Please pass is a valid TLD. Valid TLDs include: ${VALID_TLDS.join(
+			error: `Please pass is a valid TLD. Valid TLDs include: ${VALID_DOMAIN_TLDS.join(
 				', '
 			)}`,
 		};

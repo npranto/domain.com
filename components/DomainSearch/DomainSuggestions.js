@@ -1,6 +1,10 @@
 import DomainSuggestion from './DomainSuggestion';
 
-export default function DomainSuggestions({ suggestionDomains = [] }) {
+export default function DomainSuggestions({
+	suggestionDomains = [],
+	addDomainToCart,
+	removeDomainFromCart,
+}) {
 	return (
 		<section
 			className="domain-suggestions my-4 shadow-md rounded-md"
@@ -13,9 +17,9 @@ export default function DomainSuggestions({ suggestionDomains = [] }) {
 				{suggestionDomains.map((domain) => (
 					<DomainSuggestion
 						key={JSON.stringify(domain)}
-						domain={{}}
-						addDomainToCart={() => {}}
-						removeDomainFromCart={() => {}}
+						domain={domain}
+						addDomainToCart={addDomainToCart}
+						removeDomainFromCart={removeDomainFromCart}
 					/>
 				))}
 			</ul>

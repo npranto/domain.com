@@ -30,7 +30,6 @@ export default function DomainSearch() {
 		const { sld = '', tld = DEFAULT_TLD } = extractDomain(queryDomain);
 		const { isValid, error: message } = validateDomain(sld, tld);
 		const formattedDomain = `${sld}.${tld}`;
-		// setSearchInput(formattedDomain);
 		setSearchedDomainName(formattedDomain);
 		if (!isValid) {
 			setError(message);
@@ -94,8 +93,11 @@ export default function DomainSearch() {
 		);
 	};
 
+	const filterDomainsByAvailability = (domains = []) =>
+		domains.filter((domain) => domain?.domainInfo?.availability);
+
 	const searchedDomain = getSearchedDomain();
-	const suggestionDomains = getSuggestionDomains();
+	const suggestionDomains = filterDomainsByAvailability(getSuggestionDomains());
 
 	console.log({
 		query: router.query,
@@ -127,7 +129,11 @@ export default function DomainSearch() {
 							onAddPrivacyProtection={() => {}}
 							privacy={{}}
 						/>
-						<DomainSuggestions />
+						<DomainSuggestions
+							suggestionDomains={suggestionDomains}
+							addDomainToCart={addDomainToCart}
+							removeDomainFromCart={removeDomainFromCart}
+						/>
 					</>
 				) : null}
 			</article>

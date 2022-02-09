@@ -9,7 +9,10 @@ export default function DomainSearchBar({ onSearchDomain }) {
 	const { searchInput, onSearchInputChange, setSearchInput } =
 		useSearchInput('');
 
-	useEffect(() => setSearchInput(router.query.domain), [router.query.domain]);
+	useEffect(
+		() => setSearchInput(router?.query?.domain || ''),
+		[router.query.domain]
+	);
 
 	const onSubmit = (e) => {
 		e.preventDefault();
