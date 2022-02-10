@@ -1,15 +1,16 @@
-/* eslint-disable jsx-a11y/label-has-associated-control */
 import Head from 'next/head';
 import Footer from '../components/Footer/Footer';
 import Nav from '../components/Nav/Nav';
-import styles from '../styles/Registration.module.css';
-import DomainSearch from '../components/DomainSearch/DomainSearch';
+import styles from '../styles/Home.module.css';
 
-export default function Registration() {
+export default function Home() {
 	return (
 		<div className={styles.container}>
 			<Head>
-				<title>Registration - Domain.com</title>
+				<title>
+					Addons - Website Domain Names, Online Stores &amp; Hosting -
+					Domain.com
+				</title>
 				<meta
 					name="description"
 					content="Finding the perfect website domain is as easy as 1-2-3. Buy a domain name, build and host a website, and enjoy our professional online marketing tools."
@@ -41,8 +42,8 @@ export default function Registration() {
 
 			<Nav />
 
-			<main className={`${styles.main} bg-zinc-100`}>
-				<DomainSearch />
+			<main className={styles.main}>
+				<h1>Addons</h1>
 			</main>
 
 			<Footer />

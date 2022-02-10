@@ -1,2 +1,32 @@
 .overlay {
+	animation-name: fadeIn;
+	animation-duration: 400ms;
+	transition: all 0.4s ease-in-out;
+	animation-fill-mode: forwards;
+	opacity: 0;
+}
+.panel {
+	animation-name: slideFromRight;
+	animation-duration: 400ms;
+	transition: all 0.4s ease-in-out;
+	animation-fill-mode: forwards;
+	transform: translateX(100%);
+}
+
+@keyframes fadeIn {
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
+}
+
+@keyframes slideFromRight {
+	0% {
+		transform: translateX(100%);
+	}
+	100% {
+		transform: translateX(0);
+	}
 }

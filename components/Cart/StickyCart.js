@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import Link from 'next/link';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import getSubtotal from '../../utils/getSubtotal';
 
@@ -26,12 +28,12 @@ export default function StickyCart({ cart = [], onShowCart }) {
 						</span>
 					)}
 				</button>
-				<button
-					type="button"
-					className="flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-800 hover:bg-gray-900"
-				>
-					Next
-				</button>
+
+				<Link href="/addons">
+					<a className="flex justify-center items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-gray-800 hover:bg-gray-900">
+						Addons
+					</a>
+				</Link>
 			</div>
 			{/* <div className="mt-6 flex justify-center text-sm text-center text-gray-500">
 				<p>

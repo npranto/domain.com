@@ -1,4 +1,7 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-redundant-roles */
+import Link from 'next/link';
+import { useEffect } from 'react/cjs/react.development';
 import {
 	DEFAULT_DOMAIN_PRICE,
 	DEFAULT_DOMAIN_TERM,
@@ -13,8 +16,6 @@ export default function SliderCart({
 	removeItemFromCart,
 }) {
 	const subtotal = getSubtotal(cart);
-
-	console.log({ subtotal });
 
 	return (
 		<div
@@ -39,7 +40,7 @@ export default function SliderCart({
 					aria-hidden="true"
 				/>
 
-				<div className="fixed inset-y-0 right-0 pl-10 max-w-full flex">
+				<div className="fixed inset-y-0 right-0 w-full box-border md:max-w-md flex">
 					{/* <!--
         Slide-over panel, show/hide based on slide-over state.
 
@@ -51,7 +52,7 @@ export default function SliderCart({
           To: "translate-x-full"
       --> */}
 					<div
-						className={`${styles.panel} w-screen max-w-md transform transition ease-in-out duration-500 sm:duration-700 translate-x-0`}
+						className={`${styles.panel} w-screen transform transition ease-in-out duration-500 sm:duration-700 translate-x-0`}
 					>
 						<div className="h-full flex flex-col bg-white shadow-xl overflow-y-scroll">
 							<div className="flex-1 py-6 overflow-y-auto px-4 sm:px-6">
@@ -60,7 +61,7 @@ export default function SliderCart({
 										className="text-lg font-medium text-gray-900"
 										id="slide-over-title"
 									>
-										Shopping cart
+										Shopping Cart
 									</h2>
 									<div className="ml-3 h-7 flex items-center">
 										<button
@@ -91,9 +92,12 @@ export default function SliderCart({
 
 								<div className="mt-8">
 									<div className="flow-root">
-										<p className="text-gray-500 italic p-4 text-center">
-											Empty cart
-										</p>
+										{cart.length === 0 ? (
+											<p className="text-gray-500 italic p-4 text-center">
+												Empty cart
+											</p>
+										) : null}
+
 										<ul role="list" className="-my-6 divide-y divide-gray-200">
 											{cart.map((item) => {
 												const productName = isDomain(item)
@@ -109,7 +113,7 @@ export default function SliderCart({
 
 												return (
 													<li className="py-6 flex" key={JSON.stringify(item)}>
-														<div className="ml-4 flex-1 flex flex-col">
+														<div className="flex-1 flex flex-col">
 															<div>
 																<div className="flex justify-between text-base font-medium text-gray-900">
 																	<h3>
@@ -148,21 +152,20 @@ export default function SliderCart({
 							</div>
 
 							<div className="border-t border-gray-200 py-6 px-4 sm:px-6">
-								<div className="flex justify-between text-base font-medium text-gray-900">
+								<div className="flex justify-between text-base font-medium text-gray-900 font-semibold">
 									<p>Subtotal</p>
-									<p>${subtotal}</p>
+									<p className="text-lg md:text-xl">${subtotal}</p>
 								</div>
 								<p className="mt-0.5 text-sm text-gray-500">
 									Shipping and taxes calculated at checkout.
 								</p>
-								{/* <div className="mt-6">
-									<a
-										href="#/"
-										className="flex justify-center items-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700"
-									>
-										Next
-									</a>
-								</div> */}
+								<div className="mt-6">
+									<Link href="/addons">
+										<a className="flex justify-center items-center px-3 md:px-6 py-2 md:py-3 border border-transparent rounded-md shadow-sm text-sm md:text-base font-medium text-white bg-indigo-600 hover:bg-indigo-700 transition-colors">
+											Addons
+										</a>
+									</Link>
+								</div>
 								{/* <div className="mt-6 flex justify-center text-sm text-center text-gray-500">
 									<p>
 										or{' '}

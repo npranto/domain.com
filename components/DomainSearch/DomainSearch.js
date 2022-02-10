@@ -149,7 +149,7 @@ export default function DomainSearch() {
 		<>
 			<DomainSearchBar onSearchDomain={onSearchDomain} />
 
-			<article className="overflow auto flex flex-col flex-grow w-full max-w-screen-md mx-auto">
+			<article className="overflow auto flex flex-col flex-grow w-full max-w-screen-lg mx-auto">
 				{error ? <ErrorAlert className="my-4" message={error} /> : null}
 
 				{status === IDLE ? <StartDomainSearch /> : null}
@@ -186,8 +186,6 @@ export default function DomainSearch() {
 								removeItemFromCart={removeItemFromCart}
 							/>
 						) : null}
-
-						<pre>{JSON.stringify({ cart }, null, 2)}</pre>
 					</>
 				) : null}
 			</article>
