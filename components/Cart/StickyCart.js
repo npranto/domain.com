@@ -23,7 +23,7 @@ export default function StickyCart({ cart = [], onShowCart }) {
 				>
 					<AiOutlineShoppingCart size="1.75em" />
 					{cart.length === 0 ? null : (
-						<span className="absolute right-0 top-0 rounded-full bg-red-600 w-4 h-4 top right p-0 m-0 text-white font-mono text-sm  leading-tight text-center">
+						<span className="absolute -right-2 -top-2 rounded-full bg-red-600 w-6 h-6 top right p-0 m-0 text-white font-mono text-xs leading-tight text-center flex justify-center items-center">
 							{cart.length}
 						</span>
 					)}

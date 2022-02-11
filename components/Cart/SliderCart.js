@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import Link from 'next/link';
-import { useEffect } from 'react/cjs/react.development';
 import {
 	DEFAULT_DOMAIN_PRICE,
 	DEFAULT_DOMAIN_TERM,

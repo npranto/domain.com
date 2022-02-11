@@ -1,11 +1,14 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import Head from 'next/head';
+import { useContext } from 'react';
 import Footer from '../components/Footer/Footer';
 import Nav from '../components/Nav/Nav';
 import styles from '../styles/Registration.module.css';
 import DomainSearch from '../components/DomainSearch/DomainSearch';
+import { CartContext } from '../context/CartContext';
 
 export default function Registration() {
+	const { cart } = useContext(CartContext);
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -39,7 +42,7 @@ export default function Registration() {
 				<meta name="theme-color" content="#ffffff" />
 			</Head>
 
-			<Nav />
+			<Nav cart={cart} />
 
 			<main className={`${styles.main} bg-zinc-100`}>
 				<DomainSearch />

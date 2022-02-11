@@ -149,7 +149,7 @@ export default function DomainSearch() {
 		<>
 			<DomainSearchBar onSearchDomain={onSearchDomain} />
 
-			<article className="overflow auto flex flex-col flex-grow w-full max-w-screen-lg mx-auto">
+			<article className="overflow auto flex flex-col flex-grow w-full max-w-screen-lg mx-auto md:px-2">
 				{error ? <ErrorAlert className="my-4" message={error} /> : null}
 
 				{status === IDLE ? <StartDomainSearch /> : null}

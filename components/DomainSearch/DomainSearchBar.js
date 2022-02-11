@@ -6,10 +6,14 @@ import useSearchInput from '../../hooks/useSearchInput';
 export default function DomainSearchBar({ onSearchDomain }) {
 	const router = useRouter();
 
-	const { searchInput, onSearchInputChange, setSearchInput } =
-		useSearchInput('');
+	const { searchInput, onSearchInputChange, setSearchInput } = useSearchInput(
+		router?.query?.domain || ''
+	);
 
-	useEffect(() => setSearchInput(router.query.domain), [router.query.domain]);
+	useEffect(
+		() => setSearchInput(router?.query?.domain || ''),
+		[router.query.domain]
+	);
 
 	const onSubmit = (e) => {
 		e.preventDefault();

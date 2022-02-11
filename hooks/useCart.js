@@ -1,8 +1,32 @@
-import { useState } from 'react/cjs/react.development';
+import { useState, useEffect } from 'react';
+import hasWindow from '../utils/hasWindow';
 import isDomain from '../utils/isDomain';
 
+const getCartFromLocalStorage = () => {
+	if (!hasWindow()) return null;
+	const item = JSON.parse(localStorage.getItem('cart'));
+	console.log({ item });
+	return item;
+};
+
+const saveCartToLocalStorage = (cart) => {
+	if (!hasWindow()) return;
+	localStorage.setItem('cart', JSON.stringify(cart));
+};
+
+const removeCartFromLocalStorage = () => {
+	if (!hasWindow()) return;
+	localStorage.removeItem('cart');
+};
+
 export default function useCart() {
-	const [cart, setCart] = useState([]);
+	const [cart, setCart] = useState(getCartFromLocalStorage() || []);
+
+	console.log('Inside cart context...', { cart });
+
+	useEffect(() => {
+		saveCartToLocalStorage(cart);
+	}, [JSON.stringify(cart)]);
 
 	const addItemToCart = (item) => {
 		setCart((prevCart) => [...prevCart, item]);
