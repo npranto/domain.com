@@ -8,8 +8,8 @@ export default function SearchedDomainStatus({
 	addDomainToCart,
 	removeDomainFromCart,
 }) {
-	const domainName = searchedDomain.domainInfo.domain;
-	const isDomainAvailable = searchedDomain.domainInfo.availability;
+	const domainName = searchedDomain?.domainInfo?.domain;
+	const isDomainAvailable = searchedDomain?.domainInfo?.availability;
 	const isSearchedDomainInCart = cart.some(
 		(item) => item?.domainInfo?.domain === searchedDomain?.domainInfo?.domain
 	);

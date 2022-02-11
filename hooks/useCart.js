@@ -1,32 +1,13 @@
-import { useState, useEffect } from 'react';
-import hasWindow from '../utils/hasWindow';
+import { useEffect, useState } from 'react';
 import isDomain from '../utils/isDomain';
 
-const getCartFromLocalStorage = () => {
-	if (!hasWindow()) return null;
-	const item = JSON.parse(localStorage.getItem('cart'));
-	console.log({ item });
-	return item;
-};
-
-const saveCartToLocalStorage = (cart) => {
-	if (!hasWindow()) return;
-	localStorage.setItem('cart', JSON.stringify(cart));
-};
-
-const removeCartFromLocalStorage = () => {
-	if (!hasWindow()) return;
-	localStorage.removeItem('cart');
-};
-
-export default function useCart() {
-	const [cart, setCart] = useState(getCartFromLocalStorage() || []);
-
-	console.log('Inside cart context...', { cart });
+export default function useCart(initialValue = []) {
+	const [cart, setCart] = useState(initialValue);
+	const [isCartOpen, setIsCartOpen] = useState(false);
 
 	useEffect(() => {
-		saveCartToLocalStorage(cart);
-	}, [JSON.stringify(cart)]);
+		setIsCartOpen(cart.length > 0);
+	}, [cart.length]);
 
 	const addItemToCart = (item) => {
 		setCart((prevCart) => [...prevCart, item]);
@@ -44,10 +25,16 @@ export default function useCart() {
 		setCart(cartWithItemRemoved);
 	};
 
+	const openCart = () => setIsCartOpen(true);
+
+	const closeCart = () => setIsCartOpen(false);
+
 	return {
 		cart,
 		addItemToCart,
 		removeItemFromCart,
-		setCart,
+		isCartOpen,
+		openCart,
+		closeCart,
 	};
 }
