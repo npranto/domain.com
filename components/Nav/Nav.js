@@ -1,11 +1,13 @@
 import Image from 'next/image';
+import { useContext } from 'react';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
-import styles from './Nav.module.css';
+import { CartContext } from '../../context/CartContext';
 
-export default function Navbar({ cart = [] }) {
+export default function Navbar() {
+	const { cart } = useContext(CartContext);
 	return (
-		<nav className={styles.container}>
-			<div className={styles.logo}>
+		<nav className="p-2 md:px-4 bg-white flex items-center">
+			<div className="flex items-center flex-grow">
 				<Image
 					src="/assets/images/logo.svg"
 					width={160}
