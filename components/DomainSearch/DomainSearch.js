@@ -18,6 +18,7 @@ import fetchProduct from '../../utils/fetchProduct';
 import { CartContext } from '../../context/CartContext';
 import SliderCart from '../Cart/SliderCart';
 import StickyCart from '../Cart/StickyCart';
+import { fakeFetchDomains, fakeFetchPrivacy } from '../../utils/faker';
 
 const IDLE = 'IDLE';
 const SEARCH_PENDING = 'SEARCH_PENDING';
@@ -31,15 +32,23 @@ export default function DomainSearch() {
 	const [fetchedPrivacy, setFetchedPrivacy] = useState(null);
 	const [error, setError] = useState(null);
 	const [searchedDomainName, setSearchedDomainName] = useState('');
-	const [showCart, setShowCart] = useState(false);
+	// const [showCart, setShowCart] = useState(false);
 
-	const { cart, addItemToCart, removeItemFromCart } = useContext(CartContext);
+	const {
+		cart,
+		addItemToCart,
+		removeItemFromCart,
+		isCartOpen,
+		closeCart,
+		openCart,
+	} = useContext(CartContext);
 
 	useEffect(() => {
 		const TYPE = '2092';
 		const LEVEL = 'dir_base01_';
 
-		fetchProduct({ type: TYPE, level: LEVEL })
+		fakeFetchPrivacy()
+			// fetchProduct({ type: TYPE, level: LEVEL })
 			.then((product) => {
 				if (product?.type === TYPE && product?.level === LEVEL) {
 					setFetchedPrivacy(product);
@@ -63,7 +72,8 @@ export default function DomainSearch() {
 		} else {
 			setStatus(SEARCH_PENDING);
 			setTimeout(() => {
-				fetchDomain(formattedDomain)
+				fakeFetchDomains(formattedDomain)
+					// fetchDomain(formattedDomain)
 					.then((domains) => setFetchedDomains(domains))
 					.catch((e) => setError(e.message))
 					.finally(() => setStatus(SEARCH_COMPLETE));
@@ -83,7 +93,8 @@ export default function DomainSearch() {
 			setSearchedDomainName(formattedDomain);
 			setStatus(SEARCH_PENDING);
 			setTimeout(() => {
-				fetchDomain(formattedDomain)
+				fakeFetchDomains(formattedDomain)
+					// fetchDomain(formattedDomain)
 					.then((domains) => setFetchedDomains(domains))
 					.catch((e) => setError(e.message))
 					.finally(() => setStatus(SEARCH_COMPLETE));
@@ -91,28 +102,25 @@ export default function DomainSearch() {
 		}
 	};
 
-	const addDomainToCart = (domain) => {
-		console.log('add domain to cart', domain);
-		addItemToCart(domain);
-	};
+	// const addDomainToCart = (domain) => {
+	// 	addItemToCart(domain);
+	// };
 
-	const removeDomainFromCart = (domain) => {
-		console.log('remove domain from cart', domain);
-		removeItemFromCart(domain);
-	};
+	// const removeDomainFromCart = (domain) => {
+	// 	removeItemFromCart(domain);
+	// };
 
-	const removePrivacyFromCart = (p) => {
-		console.log('remove all privacy from cart');
-		removeItemFromCart(p);
-	};
+	// const removePrivacyFromCart = (p) => {
+	// 	removeItemFromCart(p);
+	// };
 
-	const onShowCart = () => {
-		setShowCart(true);
-	};
+	// const onShowCart = () => {
+	// 	setShowCart(true);
+	// };
 
-	const onHideCart = () => {
-		setShowCart(false);
-	};
+	// const onHideCart = () => {
+	// 	setShowCart(false);
+	// };
 
 	const getSearchedDomain = () => {
 		const { sld = '', tld = '' } = extractDomain(searchedDomainName);
@@ -161,31 +169,20 @@ export default function DomainSearch() {
 						<SearchedDomainStatus
 							cart={cart}
 							searchedDomain={searchedDomain}
-							addDomainToCart={addDomainToCart}
-							removeDomainFromCart={removeDomainFromCart}
+							addDomainToCart={(p) => addItemToCart(p)}
+							removeDomainFromCart={(p) => removeItemFromCart(p)}
 						/>
 						<PrivacyProtectionCheckbox
-							onRemovePrivacyProtection={removePrivacyFromCart}
+							onRemovePrivacyProtection={(p) => removeItemFromCart(p)}
 							onAddPrivacyProtection={() => {}}
 							privacy={fetchedPrivacy}
 						/>
 						<DomainSuggestions
 							cart={cart}
 							suggestionDomains={suggestionDomains}
-							addDomainToCart={addDomainToCart}
-							removeDomainFromCart={removeDomainFromCart}
+							addDomainToCart={(p) => addItemToCart(p)}
+							removeDomainFromCart={(p) => removeItemFromCart(p)}
 						/>
-
-						{cart.length > 0 ? (
-							<StickyCart onShowCart={onShowCart} cart={cart} />
-						) : null}
-						{showCart ? (
-							<SliderCart
-								onHideCart={onHideCart}
-								cart={cart}
-								removeItemFromCart={removeItemFromCart}
-							/>
-						) : null}
 					</>
 				) : null}
 			</article>

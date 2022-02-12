@@ -4,7 +4,7 @@ import styles from './CookieNotice.module.css';
 export default function CookieNotice({ onClose }) {
 	return (
 		<div
-			className={`${styles.container} bg-white px-6 py-4 fixed bottom-3 left-3 rounded-md w-full max-w-xl shadow-sm`}
+			className={`${styles.container} bg-white px-6 py-4 fixed bottom-0 left-0 box-border rounded-md w-full max-w-xl shadow-sm`}
 		>
 			<button
 				type="button"

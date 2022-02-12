@@ -6,9 +6,12 @@ import Nav from '../components/Nav/Nav';
 import styles from '../styles/Registration.module.css';
 import DomainSearch from '../components/DomainSearch/DomainSearch';
 import { CartContext } from '../context/CartContext';
+import StickyCart from '../components/Cart/StickyCart';
+import SliderCart from '../components/Cart/SliderCart';
 
 export default function Registration() {
-	const { cart } = useContext(CartContext);
+	const { cart, openCart, closeCart, isCartOpen, removeItemFromCart } =
+		useContext(CartContext);
 	return (
 		<div className={styles.container}>
 			<Head>
@@ -42,10 +45,22 @@ export default function Registration() {
 				<meta name="theme-color" content="#ffffff" />
 			</Head>
 
-			<Nav cart={cart} />
+			<Nav />
 
 			<main className={`${styles.main} bg-zinc-100`}>
 				<DomainSearch />
+
+				{isCartOpen ? (
+					<SliderCart
+						onCloseCart={closeCart}
+						cart={cart}
+						removeItemFromCart={removeItemFromCart}
+					/>
+				) : null}
+
+				{cart.length > 0 ? (
+					<StickyCart onOpenCart={openCart} cart={cart} />
+				) : null}
 			</main>
 
 			<Footer />

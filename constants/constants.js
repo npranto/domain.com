@@ -1,3 +1,4 @@
+export const COOKIE_NOTICE_ACCEPTED = 'cookie-notice-accepted';
 export const DEFAULT_DOMAIN_TLD = 'com';
 export const DEFAULT_DOMAIN_PRICE = '12.99';
 export const DEFAULT_DOMAIN_TERM = 12;

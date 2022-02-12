@@ -22,7 +22,7 @@ export function CartProvider({ children }) {
 			openCart,
 			closeCart,
 		}),
-		[cart.length]
+		[JSON.stringify(cart), isCartOpen]
 	);
 
 	return (

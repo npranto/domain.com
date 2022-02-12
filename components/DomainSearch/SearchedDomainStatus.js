@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaRegTimesCircle, FaTimesCircle } from 'react-icons/fa';
 
@@ -13,6 +12,13 @@ export default function SearchedDomainStatus({
 	const isSearchedDomainInCart = cart.some(
 		(item) => item?.domainInfo?.domain === searchedDomain?.domainInfo?.domain
 	);
+
+	console.log({
+		domainName,
+		isDomainAvailable,
+		isSearchedDomainInCart,
+		searchedDomain,
+	});
 
 	// useEffect(() => {
 	// 	if (isDomainAvailable) {

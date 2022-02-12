@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import styles from './Hero.module.css';
 import useSearchInput from '../../hooks/useSearchInput';
+import { DEFAULT_DOMAIN_TLD } from '../../constants/constants';
 
 export default function Hero() {
 	const router = useRouter();
@@ -10,7 +11,7 @@ export default function Hero() {
 		e.preventDefault();
 		const formattedDomain = searchInput.includes('.')
 			? searchInput
-			: `${searchInput}.com`;
+			: `${searchInput}.${DEFAULT_DOMAIN_TLD}`;
 		router.push(`/registration?domain=${formattedDomain}`);
 	};
 

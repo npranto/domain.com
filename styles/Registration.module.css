@@ -2,12 +2,8 @@
 	display: grid;
 	grid-template-rows: auto 1fr;
 	height: 100vh;
-	/* overflow: auto; */
-	/* background-color: lavender; */
 }
 .main {
 	display: grid;
 	grid-template-rows: auto 1fr;
-	/* overflow: auto; */
-	/* background-color: lightcyan; */
 }

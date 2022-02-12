@@ -6,7 +6,9 @@ export default function useCart(initialValue = []) {
 	const [isCartOpen, setIsCartOpen] = useState(false);
 
 	useEffect(() => {
-		setIsCartOpen(cart.length > 0);
+		if (cart.length === 0) {
+			setIsCartOpen(false);
+		}
 	}, [cart.length]);
 
 	const addItemToCart = (item) => {
@@ -25,9 +27,13 @@ export default function useCart(initialValue = []) {
 		setCart(cartWithItemRemoved);
 	};
 
-	const openCart = () => setIsCartOpen(true);
+	const openCart = () => {
+		setIsCartOpen(true);
+	};
 
-	const closeCart = () => setIsCartOpen(false);
+	const closeCart = () => {
+		setIsCartOpen(false);
+	};
 
 	return {
 		cart,

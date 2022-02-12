@@ -4,7 +4,7 @@ import Footer from '../components/Footer/Footer';
 import Hero from '../components/Hero/Hero';
 import Nav from '../components/Nav/Nav';
 import styles from '../styles/Home.module.css';
-import { COOKIE_NOTICE_ACCEPTED } from '../constants/storage';
+import { COOKIE_NOTICE_ACCEPTED } from '../constants/constants';
 import useSessionStorage from '../hooks/useSessionStorage';
 
 export default function Home() {

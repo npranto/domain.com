@@ -16,13 +16,15 @@ const saveItemToSessionStorage = (key, value) => {
 	sessionStorage.setItem(key, JSON.stringify(value));
 };
 
-const useSessionStorage = (key, defaultValue) => {
-	if (!key || typeof key !== 'string') {
-		throw new Error('Please provide a `key` to useSessionStorage hook');
+const useSessionStorage = (key, initialValue) => {
+	if (!key || typeof key !== 'string' || typeof initialValue === 'undefined') {
+		throw new Error(
+			'Please provide both `key` and `initialValue` to useSessionStorage hook'
+		);
 	}
 
 	const [value, setValue] = useState(
-		() => getItemFromSessionStorage(key) || defaultValue
+		() => getItemFromSessionStorage(key) || initialValue
 	);
 
 	useEffect(() => {
