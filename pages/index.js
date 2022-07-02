@@ -1,10 +1,11 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Head from "next/head";
 import CookieNotice from "../components/CookieNotice/CookieNotice";
 import Footer from "../components/Footer/Footer";
 import Hero from "../components/Hero/Hero";
 import Nav from "../components/Nav/Nav";
 import styles from "../styles/Home.module.css";
+import StartPerfectDomain from "../components/StartPerfectDomain/StartPerfectDomain";
 
 export default function Home() {
   const [showCookieNotice, setShowCookieNotice] = useState(() =>
@@ -57,6 +58,7 @@ export default function Home() {
 
       <main className={styles.main}>
         <Hero />
+        <StartPerfectDomain />
       </main>
 
       {showCookieNotice ? <CookieNotice onClose={onHideCookieNotice} /> : null}
