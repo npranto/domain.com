@@ -1,6 +1,6 @@
 {
 	"name": "domain.com",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"scripts": {
 		"clean": "npx rimraf node_modules .next && npm install",
 		"dev": "next dev",
