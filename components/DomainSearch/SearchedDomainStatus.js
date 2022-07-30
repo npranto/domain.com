@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { BsFillCheckCircleFill } from 'react-icons/bs';
 import { FaRegTimesCircle, FaTimesCircle } from 'react-icons/fa';
 
