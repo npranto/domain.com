@@ -1,27 +1,15 @@
 import Head from 'next/head';
-import CookieNotice from '../components/CookieNotice/CookieNotice';
 import Footer from '../components/Footer/Footer';
-import Hero from '../components/Hero/Hero';
 import Nav from '../components/Nav/Nav';
-import StartPerfectDomain from '../components/StartPerfectDomain/StartPerfectDomain';
-import { COOKIE_NOTICE_ACCEPTED } from '../constants/constants';
-import useSessionStorage from '../hooks/useSessionStorage';
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
-	const [cookieNoticeAccepted, setCookieNoticeAccepted] = useSessionStorage(
-		COOKIE_NOTICE_ACCEPTED,
-		false
-	);
-
-	const onHideCookieNotice = () => {
-		setCookieNoticeAccepted(true);
-	};
-
 	return (
-		<div>
+		<div className={styles.container}>
 			<Head>
 				<title>
-					Website Domain Names, Online Stores &amp; Hosting - Domain.com
+					Addons - Website Domain Names, Online Stores &amp; Hosting -
+					Domain.com
 				</title>
 				<meta
 					name="description"
@@ -54,14 +42,9 @@ export default function Home() {
 
 			<Nav />
 
-			<main>
-				<Hero />
-				<StartPerfectDomain />
+			<main className={styles.main}>
+				<h1>Addons</h1>
 			</main>
-
-			{!cookieNoticeAccepted ? (
-				<CookieNotice onClose={onHideCookieNotice} />
-			) : null}
 
 			<Footer />
 		</div>

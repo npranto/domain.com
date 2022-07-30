@@ -1,14 +1,17 @@
 .container {
-  animation-name: slideUp;
-  animation-duration: 1000ms;
-  transition: all 0.4s ease-in-out;
+	animation-name: slideUp;
+	animation-duration: 1000ms;
+	transition: opacity 0.4s ease-in-out;
+	animation-delay: 400ms;
+	animation-fill-mode: forwards;
+	opacity: 0;
 }
 
 @keyframes slideUp {
-  0% {
-    transform: translateY(100%);
-  }
-  100% {
-    transform: translateY(0);
-  }
+	0% {
+		opacity: 0;
+	}
+	100% {
+		opacity: 1;
+	}
 }
