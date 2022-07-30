@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useRouter } from 'next/router';
 import { useContext, useEffect, useState } from 'react';
 import Loading from './Loading';
@@ -10,14 +11,10 @@ import {
 	DEFAULT_PRIVACY_PRODUCT,
 	DEFAULT_DOMAIN_TLD,
 } from '../../constants/constants';
-import fetchDomain from '../../utils/fetchDomain';
 import ErrorAlert from '../ErrorAlert';
 import validateDomain from '../../utils/validateDomain';
 import StartDomainSearch from './StartDomainSearch';
-import fetchProduct from '../../utils/fetchProduct';
 import { CartContext } from '../../context/CartContext';
-import SliderCart from '../Cart/SliderCart';
-import StickyCart from '../Cart/StickyCart';
 import { fakeFetchDomains, fakeFetchPrivacy } from '../../utils/faker';
 
 const IDLE = 'IDLE';
@@ -34,14 +31,7 @@ export default function DomainSearch() {
 	const [searchedDomainName, setSearchedDomainName] = useState('');
 	// const [showCart, setShowCart] = useState(false);
 
-	const {
-		cart,
-		addItemToCart,
-		removeItemFromCart,
-		isCartOpen,
-		closeCart,
-		openCart,
-	} = useContext(CartContext);
+	const { cart, addItemToCart, removeItemFromCart } = useContext(CartContext);
 
 	useEffect(() => {
 		const TYPE = '2092';
