@@ -3,7 +3,7 @@ import CookieNotice from '../components/CookieNotice/CookieNotice';
 import Footer from '../components/Footer/Footer';
 import Hero from '../components/Hero/Hero';
 import Nav from '../components/Nav/Nav';
-import styles from '../styles/Home.module.css';
+import StartPerfectDomain from '../components/StartPerfectDomain/StartPerfectDomain';
 import { COOKIE_NOTICE_ACCEPTED } from '../constants/constants';
 import useSessionStorage from '../hooks/useSessionStorage';
 
@@ -18,7 +18,7 @@ export default function Home() {
 	};
 
 	return (
-		<div className={styles.container}>
+		<div>
 			<Head>
 				<title>
 					Website Domain Names, Online Stores &amp; Hosting - Domain.com
@@ -54,8 +54,9 @@ export default function Home() {
 
 			<Nav />
 
-			<main className={styles.main}>
+			<main>
 				<Hero />
+				<StartPerfectDomain />
 			</main>
 
 			{!cookieNoticeAccepted ? (
