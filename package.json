@@ -1,6 +1,6 @@
 {
 	"name": "domain.com",
-	"private": true,
+	"version": "1.0.0",
 	"scripts": {
 		"clean": "npx rimraf node_modules .next && npm install",
 		"dev": "next dev",
